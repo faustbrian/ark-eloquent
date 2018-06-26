@@ -1,7 +1,7 @@
 # Ark Eloquent
 
 <p align="center">
-    <img src="https://github.com/arkx/ark-eloquent/raw/master/banner.png" />
+    <img src="https://github.com/arkx-ecosystem/ark-eloquent/raw/master/banner.png" />
 </p>
 
 > An [Elasticsearch](https://github.com/ArkEcosystem/core) integration for the [ARK Blockchain](https://github.com/ArkEcosystem/core).
