@@ -1,7 +1,7 @@
 # Ark Eloquent
 
 <p align="center">
-    <img src="https://gitlab.com/arkx/ark-eloquent/raw/master/banner.png" />
+    <img src="https://github.com/arkx/ark-eloquent/raw/master/banner.png" />
 </p>
 
 > An [Elasticsearch](https://github.com/ArkEcosystem/core) integration for the [ARK Blockchain](https://github.com/ArkEcosystem/core).
@@ -26,7 +26,7 @@ If you discover a security vulnerability within this package, please send an e-m
 
 ## Credits
 
-- [Brian Faust](https://gitlab.com/faustbrian)
+- [Brian Faust](https://github.com/faustbrian)
 - [All Contributors](../../../../contributors)
 
 ## License
