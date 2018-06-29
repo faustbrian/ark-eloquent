@@ -1,6 +1,6 @@
 {
     "name": "arkx/ark-eloquent",
-    "description": "An ARK Blockchain bridge for Laravel.",
+    "description": "A Laravel Eloquent bridge for Ark Core.",
     "keywords": ["laravel", "eloquent", "database", "ark", "blockchain", "crypto", "currency"],
     "license": "MIT",
     "authors": [{

@@ -4,7 +4,7 @@
     <img src="https://github.com/arkx-ecosystem/ark-eloquent/raw/master/banner.png" />
 </p>
 
-> An [Elasticsearch](https://github.com/ArkEcosystem/core) integration for the [ARK Blockchain](https://github.com/ArkEcosystem/core).
+> A [Laravel Eloquent](https://laravel.com/docs/5.6/eloquent) bridge for [Ark Core](https://github.com/ArkEcosystem/core).
 
 ## Installation
 
