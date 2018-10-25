@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace ArkX\Eloquent\Models;
 
-use ArkEcosystem\Crypto\Deserialiser;
+use ArkEcosystem\Crypto\Transactions\Deserializer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -68,7 +68,7 @@ class Transaction extends Model
      */
     public function deserialise(): object
     {
-        return Deserialiser::fromObject($this)->deserialise();
+        return Deserializer::new($this->serialized)->deserialize();
     }
 
     /**
