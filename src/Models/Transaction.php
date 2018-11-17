@@ -88,7 +88,7 @@ class Transaction extends Model
      */
     public function getFormattedFeeAttribute(): float
     {
-        return $this->fee / 10 ** 8;
+        return $this->fee / 1e8;
     }
 
     /**
@@ -98,7 +98,7 @@ class Transaction extends Model
      */
     public function getFormattedAmountAttribute(): float
     {
-        return $this->amount / 10 ** 8;
+        return $this->amount / 1e8;
     }
 
     /**

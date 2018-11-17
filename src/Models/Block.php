@@ -80,7 +80,7 @@ class Block extends Model
      */
     public function getFormattedTotalAttribute(): float
     {
-        return $this->totalAmount / 10 ** 8;
+        return $this->totalAmount / 1e8;
     }
 
     /**
@@ -90,7 +90,7 @@ class Block extends Model
      */
     public function getFormattedFeeAttribute(): float
     {
-        return $this->totalFee / 10 ** 8;
+        return $this->totalFee / 1e8;
     }
 
     /**
@@ -100,7 +100,7 @@ class Block extends Model
      */
     public function getFormattedRewardAttribute(): float
     {
-        return $this->reward / 10 ** 8;
+        return $this->reward / 1e8;
     }
 
     /**

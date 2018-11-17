@@ -47,7 +47,7 @@ class Round extends Model
      */
     public function getFormattedBalanceAttribute(): float
     {
-        return $this->balance / 10 ** 8;
+        return $this->balance / 1e8;
     }
 
     /**

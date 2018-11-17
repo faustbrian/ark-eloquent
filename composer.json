@@ -9,10 +9,10 @@
         "homepage": "https://brianfaust.me"
     }],
     "require": {
-        "php": "^7.1",
-        "arkecosystem/crypto": "^0.2.2",
-        "illuminate/database": "^5.6",
-        "illuminate/support": "^5.6"
+        "php": "^7.2",
+        "arkecosystem/crypto": "^0.2.4",
+        "illuminate/database": "^5.7",
+        "illuminate/support": "^5.7"
     },
     "require-dev": {
         "graham-campbell/testbench": "^5.0",

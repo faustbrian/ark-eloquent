@@ -115,7 +115,7 @@ class Wallet extends Model
      */
     public function getFormattedBalanceAttribute(): float
     {
-        return $this->balance / 10 ** 8;
+        return $this->balance / 1e8;
     }
 
     /**
@@ -125,7 +125,7 @@ class Wallet extends Model
      */
     public function getFormattedVoteBalanceAttribute(): float
     {
-        return $this->votebalance / 10 ** 8;
+        return $this->votebalance / 1e8;
     }
 
     /**
