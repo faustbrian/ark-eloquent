@@ -195,7 +195,8 @@ class Transaction extends Model
      * Scope a query to only include transactions by the sender.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $publicKey
+     * @param string                                $publicKey
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeSendBy($query, $publicKey)
@@ -207,7 +208,8 @@ class Transaction extends Model
      * Scope a query to only include transactions by the recipient.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $address
+     * @param string                                $address
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeReceivedBy($query, $address)
