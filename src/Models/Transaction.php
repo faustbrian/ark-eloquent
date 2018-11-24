@@ -114,9 +114,15 @@ class Transaction extends Model
      *
      * @return string
      */
-    public function getVendorFieldAttribute(): string
+    public function getVendorFieldAttribute(): ?string
     {
-        return hex2bin(stream_get_contents($this->vendor_field_hex));
+        $vendorFieldHex = $this->attributes['vendor_field_hex'];
+
+        if (empty($vendorFieldHex)) {
+            return null;
+        }
+
+        return hex2bin(stream_get_contents($vendorFieldHex));
     }
 
     /**
