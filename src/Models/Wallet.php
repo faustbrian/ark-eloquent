@@ -37,7 +37,7 @@ class Wallet extends Model
      */
     public function sentTransactions(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'senderPublicKey', 'publicKey');
+        return $this->hasMany(Transaction::class, 'sender_public_key', 'public_key');
     }
 
     /**
@@ -47,7 +47,7 @@ class Wallet extends Model
      */
     public function receivedTransactions(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'recipientId', 'address');
+        return $this->hasMany(Transaction::class, 'recipient_id', 'address');
     }
 
     /**
@@ -57,15 +57,15 @@ class Wallet extends Model
      */
     public function blocks(): HasMany
     {
-        return $this->hasMany(Block::class, 'generatorPublicKey', 'publicKey');
+        return $this->hasMany(Block::class, 'generator_public_key', 'public_key');
     }
 
     /**
-     * [findByAddress description].
+     * Find a wallet by its address.
      *
-     * @param string $value [description]
+     * @param string $value
      *
-     * @return [type] [description]
+     * @return Wallet
      */
     public static function findByAddress(string $value): self
     {
@@ -73,11 +73,11 @@ class Wallet extends Model
     }
 
     /**
-     * [findByPublicKey description].
+     * Find a wallet by its public-key.
      *
-     * @param string $value [description]
+     * @param string $value
      *
-     * @return [type] [description]
+     * @return Wallet
      */
     public static function findByPublicKey(string $value): self
     {
@@ -85,27 +85,15 @@ class Wallet extends Model
     }
 
     /**
-     * [findByUsername description].
+     * Find a wallet by its username.
      *
-     * @param string $value [description]
+     * @param string $value
      *
-     * @return [type] [description]
+     * @return Wallet
      */
     public static function findByUsername(string $value): self
     {
         return static::whereUsername($value)->firstOrFail();
-    }
-
-    /**
-     * [findByVote description].
-     *
-     * @param string $value [description]
-     *
-     * @return [type] [description]
-     */
-    public static function findByVote(string $value): self
-    {
-        return static::whereVote($value)->firstOrFail();
     }
 
     /**
@@ -125,7 +113,19 @@ class Wallet extends Model
      */
     public function getFormattedVoteBalanceAttribute(): float
     {
-        return $this->votebalance / 1e8;
+        return $this->vote_balance / 1e8;
+    }
+
+    /**
+     * Scope a query to only include transactions by the recipient.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $publicKey
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVote($query, $publicKey)
+    {
+        return $query->where('vote', $publicKey);
     }
 
     /**

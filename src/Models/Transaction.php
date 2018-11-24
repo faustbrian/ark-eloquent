@@ -38,7 +38,7 @@ class Transaction extends Model
      */
     public function block(): BelongsTo
     {
-        return $this->belongsTo(Block::class, 'blockId');
+        return $this->belongsTo(Block::class, 'block_id');
     }
 
     /**
@@ -48,7 +48,7 @@ class Transaction extends Model
      */
     public function sender(): BelongsTo
     {
-        return $this->belongsTo(Wallet::class, 'senderPublicKey', 'publicKey');
+        return $this->belongsTo(Wallet::class, 'sender_public_key', 'public_key');
     }
 
     /**
@@ -58,7 +58,7 @@ class Transaction extends Model
      */
     public function recipient(): BelongsTo
     {
-        return $this->belongsTo(Wallet::class, 'recipientId', 'address');
+        return $this->belongsTo(Wallet::class, 'recipient_id', 'address');
     }
 
     /**
@@ -189,6 +189,30 @@ class Transaction extends Model
     public function getIsDelegateResignationAttribute(): bool
     {
         return 8 === (int) $this->type;
+    }
+
+    /**
+     * Scope a query to only include transactions by the sender.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $publicKey
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSendBy($query, $publicKey)
+    {
+        return $query->where('sender_public_key', $publicKey);
+    }
+
+    /**
+     * Scope a query to only include transactions by the recipient.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $address
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeReceivedBy($query, $address)
+    {
+        return $query->where('recipient_id', $address);
     }
 
     /**

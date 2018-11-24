@@ -37,7 +37,7 @@ class Round extends Model
      */
     public function delegate(): BelongsTo
     {
-        return $this->belongsTo(Wallet::class, 'publicKey', 'publicKey');
+        return $this->belongsTo(Wallet::class, 'public_key', 'public_key');
     }
 
     /**

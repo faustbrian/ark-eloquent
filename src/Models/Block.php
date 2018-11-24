@@ -104,6 +104,18 @@ class Block extends Model
     }
 
     /**
+     * Scope a query to only include blocks by the generator.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $publicKey
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeGenerator($query, $publicKey)
+    {
+        return $query->where('generator_public_key', $publicKey);
+    }
+
+    /**
      * Get the current connection name for the model.
      *
      * @return string
