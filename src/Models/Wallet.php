@@ -61,6 +61,39 @@ class Wallet extends Model
     }
 
     /**
+     * Scope a query to only include transactions by the recipient.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string                                $publicKey
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVote($query, $publicKey)
+    {
+        return $query->where('vote', $publicKey);
+    }
+
+    /**
+     * Get the human readable representation of the balance.
+     *
+     * @return float
+     */
+    public function getFormattedBalanceAttribute(): float
+    {
+        return $this->balance / 1e8;
+    }
+
+    /**
+     * Get the human readable representation of the vote balance.
+     *
+     * @return float
+     */
+    public function getFormattedVoteBalanceAttribute(): float
+    {
+        return $this->vote_balance / 1e8;
+    }
+
+    /**
      * Find a wallet by its address.
      *
      * @param string $value
@@ -94,39 +127,6 @@ class Wallet extends Model
     public static function findByUsername(string $value): self
     {
         return static::whereUsername($value)->firstOrFail();
-    }
-
-    /**
-     * Get the human readable representation of the balance.
-     *
-     * @return float
-     */
-    public function getFormattedBalanceAttribute(): float
-    {
-        return $this->balance / 1e8;
-    }
-
-    /**
-     * Get the human readable representation of the vote balance.
-     *
-     * @return float
-     */
-    public function getFormattedVoteBalanceAttribute(): float
-    {
-        return $this->vote_balance / 1e8;
-    }
-
-    /**
-     * Scope a query to only include transactions by the recipient.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string                                $publicKey
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeVote($query, $publicKey)
-    {
-        return $query->where('vote', $publicKey);
     }
 
     /**

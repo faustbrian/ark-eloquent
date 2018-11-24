@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace ArkX\Eloquent\Models;
 
 use ArkEcosystem\Crypto\Transactions\Deserializer;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -63,25 +63,40 @@ class Transaction extends Model
     }
 
     /**
-     * Find a wallet by its address.
+     * Scope a query to only include transactions by the sender.
      *
-     * @param string $value
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string                                $publicKey
      *
-     * @return Wallet
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function findById(string $value): self
+    public function scopeSendBy($query, $publicKey)
     {
-        return static::whereId($value)->firstOrFail();
+        return $query->where('sender_public_key', $publicKey);
     }
 
     /**
-     * Perform AIP11 compliant deserialisation.
+     * Scope a query to only include transactions by the recipient.
      *
-     * @return object
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string                                $address
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function deserialise(): object
+    public function scopeReceivedBy($query, $address)
     {
-        return Deserializer::new($this->serialized)->deserialize();
+        return $query->where('recipient_id', $address);
+    }
+
+    /**
+     * Get the human readable representation of the timestamp.
+     *
+     * @return \Illuminate\Support\Carbon
+     */
+    public function getTimestampAttribute(): Carbon
+    {
+        return Carbon::parse('2017-03-21T13:00:00.000Z')
+            ->addSeconds($this->attributes['timestamp']);
     }
 
     /**
@@ -125,130 +140,25 @@ class Transaction extends Model
     }
 
     /**
-     * [getTimestampAttribute description].
+     * Find a wallet by its address.
      *
-     * @return \Illuminate\Support\Carbon
+     * @param string $value
+     *
+     * @return Wallet
      */
-    public function getTimestampAttribute(): Carbon
+    public static function findById(string $value): self
     {
-        return Carbon::parse('2017-03-21T13:00:00.000Z')
-            ->addSeconds($this->attributes['timestamp']);
+        return static::whereId($value)->firstOrFail();
     }
 
     /**
-     * Determine if the transaction is a transfer.
+     * Perform AIP11 compliant deserialisation.
      *
-     * @return bool
+     * @return object
      */
-    public function getIsTransferAttribute(): bool
+    public function deserialise(): object
     {
-        return 0 === (int) $this->type;
-    }
-
-    /**
-     * Determine if the transaction is a second signature.
-     *
-     * @return bool
-     */
-    public function getIsSecondSignatureAttribute(): bool
-    {
-        return 1 === (int) $this->type;
-    }
-
-    /**
-     * Determine if the transaction is a delegate registration.
-     *
-     * @return bool
-     */
-    public function getIsDelegateRegistrationAttribute(): bool
-    {
-        return 2 === (int) $this->type;
-    }
-
-    /**
-     * Determine if the transaction is a vote.
-     *
-     * @return bool
-     */
-    public function getIsVoteAttribute(): bool
-    {
-        return 3 === (int) $this->type;
-    }
-
-    /**
-     * Determine if the transaction is a multi signature.
-     *
-     * @return bool
-     */
-    public function getIsMultiSignatureAttribute(): bool
-    {
-        return 4 === (int) $this->type;
-    }
-
-    /**
-     * Determine if the transaction is a ipfs.
-     *
-     * @return bool
-     */
-    public function getIsIpfsAttribute(): bool
-    {
-        return 5 === (int) $this->type;
-    }
-
-    /**
-     * Determine if the transaction is a timelock transfer.
-     *
-     * @return bool
-     */
-    public function getIsTimelockTransferAttribute(): bool
-    {
-        return 6 === (int) $this->type;
-    }
-
-    /**
-     * Determine if the transaction is a multi payment.
-     *
-     * @return bool
-     */
-    public function getIsMultiPaymentAttribute(): bool
-    {
-        return 7 === (int) $this->type;
-    }
-
-    /**
-     * Determine if the transaction is a delegate resignation.
-     *
-     * @return bool
-     */
-    public function getIsDelegateResignationAttribute(): bool
-    {
-        return 8 === (int) $this->type;
-    }
-
-    /**
-     * Scope a query to only include transactions by the sender.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string                                $publicKey
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeSendBy($query, $publicKey)
-    {
-        return $query->where('sender_public_key', $publicKey);
-    }
-
-    /**
-     * Scope a query to only include transactions by the recipient.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string                                $address
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeReceivedBy($query, $address)
-    {
-        return $query->where('recipient_id', $address);
+        return Deserializer::new($this->serialized)->deserialize();
     }
 
     /**
