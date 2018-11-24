@@ -10,7 +10,7 @@
     }],
     "require": {
         "php": "^7.2",
-        "arkecosystem/crypto": "^0.2.4",
+        "arkecosystem/crypto": "dev-develop",
         "illuminate/database": "^5.7",
         "illuminate/support": "^5.7"
     },
