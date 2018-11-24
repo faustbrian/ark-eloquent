@@ -107,7 +107,8 @@ class Block extends Model
      * Scope a query to only include blocks by the generator.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $publicKey
+     * @param string                                $publicKey
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeGenerator($query, $publicKey)
