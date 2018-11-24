@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace ArkX\Eloquent\Models;
 
 use ArkEcosystem\Crypto\Transactions\Deserializer;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -62,6 +63,18 @@ class Transaction extends Model
     }
 
     /**
+     * Find a wallet by its address.
+     *
+     * @param string $value
+     *
+     * @return Wallet
+     */
+    public static function findById(string $value): self
+    {
+        return static::whereId($value)->firstOrFail();
+    }
+
+    /**
      * Perform AIP11 compliant deserialisation.
      *
      * @return object
@@ -76,9 +89,19 @@ class Transaction extends Model
      *
      * @return string
      */
+    public function getSerializedAttribute(): string
+    {
+        return bin2hex(stream_get_contents($this->attributes['serialized']));
+    }
+
+    /**
+     * Get the human readable representation of the vendor field.
+     *
+     * @return string
+     */
     public function getVendorFieldAttribute(): string
     {
-        return hex2bin($this->vendorFieldHex);
+        return hex2bin(stream_get_contents($this->vendor_field_hex));
     }
 
     /**
@@ -99,6 +122,17 @@ class Transaction extends Model
     public function getFormattedAmountAttribute(): float
     {
         return $this->amount / 1e8;
+    }
+
+    /**
+     * [getTimestampAttribute description].
+     *
+     * @return \Illuminate\Support\Carbon
+     */
+    public function getTimestampAttribute(): Carbon
+    {
+        return Carbon::parse('2017-03-21T13:00:00.000Z')
+            ->addSeconds($this->attributes['timestamp']);
     }
 
     /**

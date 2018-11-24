@@ -70,7 +70,8 @@ class Block extends Model
      */
     public function getTimestampAttribute(): Carbon
     {
-        return Carbon::createFromTimestamp($this->attributes['timestamp']);
+        return Carbon::parse('2017-03-21T13:00:00.000Z')
+            ->addSeconds($this->attributes['timestamp']);
     }
 
     /**
