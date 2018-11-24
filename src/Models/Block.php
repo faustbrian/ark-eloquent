@@ -40,7 +40,7 @@ class Block extends Model
      */
     public function transactions(): HasMany
     {
-        return $this->hasMany(Transaction::class, 'blockId', 'id');
+        return $this->hasMany(Transaction::class, 'block_id', 'id');
     }
 
     /**
@@ -50,7 +50,7 @@ class Block extends Model
      */
     public function delegate(): BelongsTo
     {
-        return $this->belongsTo(Account::class, 'generatorPublicKey', 'publicKey');
+        return $this->belongsTo(Account::class, 'generator_public_key', 'public_key');
     }
 
     /**
@@ -60,7 +60,7 @@ class Block extends Model
      */
     public function previous(): HasOne
     {
-        return $this->hasOne(self::class, 'previousBlock', 'id');
+        return $this->hasOne(self::class, 'previous_block', 'id');
     }
 
     /**
