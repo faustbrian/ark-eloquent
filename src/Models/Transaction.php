@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace ArkX\Eloquent\Models;
 
 use ArkEcosystem\Crypto\Transactions\Deserializer;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * This is the transaction model class.
