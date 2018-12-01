@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace ArkX\Eloquent\Models;
 
+use ArkEcosystem\Crypto\Configuration\Network;
 use ArkEcosystem\Crypto\Transactions\Deserializer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -93,9 +94,9 @@ class Transaction extends Model
      *
      * @return \Illuminate\Support\Carbon
      */
-    public function getTimestampAttribute(): Carbon
+    public function getTimestampCarbonAttribute(): Carbon
     {
-        return Carbon::parse('2017-03-21T13:00:00.000Z')
+        return Carbon::parse(Network::get()->epoch())
             ->addSeconds($this->attributes['timestamp']);
     }
 
