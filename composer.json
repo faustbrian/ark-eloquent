@@ -11,8 +11,8 @@
     "require": {
         "php": "^7.2",
         "arkecosystem/crypto": "^0.4.0",
-        "illuminate/database": "^5.7",
-        "illuminate/support": "^5.7"
+        "illuminate/database": "^6.0.0",
+        "illuminate/support": "^6.0.0"
     },
     "require-dev": {
         "graham-campbell/testbench": "^5.0",
